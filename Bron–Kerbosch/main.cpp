@@ -20,7 +20,8 @@ bool check_wrong(std::vector<std::set<int>>& g, std::set<int>& candidates, std::
 }
 
 
-void extend(std::vector<std::set<int>>& g, std::set<int>& compsub, std::set<int>& candidates, std::set<int>& wrong, std::vector<int>& res) {
+void extend(std::vector<std::set<int>>& g, std::set<int>& compsub, std::set<int>& candidates,
+             std::set<int>& wrong, std::vector<int>& res) {
     while (!candidates.empty() && check_wrong(g, candidates, wrong)) {
         int v = *candidates.begin();
         compsub.insert(v);
