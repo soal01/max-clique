@@ -680,7 +680,15 @@ int statement_4(std::vector<std::set<int>>& g, const std::set<int>& V, int v0) {
 
 }
 
-
+int statement_5(std::vector<std::set<int>>& g, const std::set<int>& V, int v) {
+    if (V.size() == 6) {
+        return 1;
+    } else {
+        int maxset1 = 1 + maxset(g, difference(difference(V, std::set<int>({v})), get_A(g, V, v)));
+        int maxset2 = maxset(g, difference(V, std::set<int>({v})));
+        return std::max(maxset1, maxset2);
+    }
+}
 
 int maxset(std::vector<std::set<int>>& g, const std::set<int>& V) {
     auto p = get_min_degree(g, V);
@@ -696,8 +704,16 @@ int maxset(std::vector<std::set<int>>& g, const std::set<int>& V) {
         return statement_3(g, V, v);
     }
     if (d == 4) {
-        return statement_4(g, V);
+        return statement_4(g, V, v);
     }
+    if (d == 5 && get_max_degree(g, V).first == 5) {
+        return statement_5(g, V, v);
+    }
+    p = get_max_degree(g, V);
+    int w = p.second;
+    int maxset1 = 1 + maxset(g, difference(difference(V, std::set<int>({w})), get_A(g, V, w)));
+    int maxset2 = maxset(g, difference(V, std::set<int>({w})));
+    return std::max(maxset1, maxset2);
 }
 
 int tarjan_trojanowski(std::vector<std::set<int>>& g) {
